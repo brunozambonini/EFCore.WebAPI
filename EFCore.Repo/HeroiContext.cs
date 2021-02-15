@@ -1,11 +1,7 @@
-﻿using EFCore.WebAPI.Models;
+﻿using EFCore.Dominio;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace EFCore.WebAPI.Data
+namespace EFCore.Repo
 {
     public class HeroiContext : DbContext
     {
@@ -15,11 +11,20 @@ namespace EFCore.WebAPI.Data
         public DbSet<HeroiBatalha> HeroisBatalhas { get; set; }
         public DbSet<IdentidadeSecreta> IdentidadeSecretas { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public HeroiContext(DbContextOptions<HeroiContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=HeroApp;Data Source=DESKTOP-JKR5P22");
 
         }
+
+    /*
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            
+             //O BD pode ser referenciado aqui, ou na classe Startup em configuration services.
+            optionsBuilder.UseSqlServer("Password=senha123;Persist Security Info=True;User ID=sa;Initial Catalog=master;Data Source=DESKTOP-JKR5P22");
+            
+        }
+     */
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EFCore.WebAPI.Models
+namespace EFCore.Dominio
 {
-    public class Batalha
+    public class Heroi
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public DateTime DtInicio { get; set; }
-        public DateTime DtFim { get; set; }
-
+        public List<Arma> Armas { get; set; }
         public List<HeroiBatalha> HeroisBatalhas { get; set; }
+        public IdentidadeSecreta Identidade { get; set; }
     }
 }
