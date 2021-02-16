@@ -1,6 +1,7 @@
 ﻿using EFCore.Dominio;
 using EFCore.Repo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,17 +35,24 @@ namespace EFCore.WebAPI.Controllers
         [HttpGet("heroi/{nome}")]
         public ActionResult GetHeroi(string nome)
         {
-            
+
             //Esses dois métodos de consulta fecha a conexão com o BD
             /*
             var listHeroi = _context.Herois
                 .Where(h => h.Nome.Contains(nome)).
                 ToList(); //LINQ METHOD
             */
-            
+
+            /*
             var listHeroi = (from heroi in _context.Herois 
-                             where heroi.Nome.Contains(nome)
+                             where heroi.Nome.Contains(nome) // um método de fazer filtro
                              select heroi).ToList(); // LINQ Query
+            */
+
+            var listHeroi = _context.Herois
+                            .Where(h => EF.Functions.Like(h.Nome, $"%{nome}%"))
+                            .OrderBy(h => h.Nome)
+                            .ToList();
             
             return Ok(listHeroi);
             

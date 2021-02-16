@@ -4,14 +4,16 @@ using EFCore.Repo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCore.Repo.Migrations
 {
     [DbContext(typeof(HeroiContext))]
-    partial class HeroiContextModelSnapshot : ModelSnapshot
+    [Migration("20210215193558_AlterarTipoNomeReal")]
+    partial class AlterarTipoNomeReal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,10 +85,13 @@ namespace EFCore.Repo.Migrations
                     b.Property<int>("BatalhaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HeroiId")
+                    b.Property<int>("HeroidId")
                         .HasColumnType("int");
 
-                    b.HasKey("BatalhaId", "HeroiId");
+                    b.Property<int?>("HeroiId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BatalhaId", "HeroidId");
 
                     b.HasIndex("HeroiId");
 
@@ -135,9 +140,7 @@ namespace EFCore.Repo.Migrations
 
                     b.HasOne("EFCore.Dominio.Heroi", "Heroi")
                         .WithMany("HeroisBatalhas")
-                        .HasForeignKey("HeroiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HeroiId");
 
                     b.Navigation("Batalha");
 

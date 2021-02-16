@@ -32,7 +32,7 @@ namespace EFCore.Repo
             {
                 entity.HasKey(e => new
                 {
-                    e.BatalhaId, e.HeroidId
+                    e.BatalhaId, e.HeroiId
                 });
             });
         }
