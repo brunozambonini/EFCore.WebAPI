@@ -37,7 +37,22 @@ namespace EFCore.WebAPI.Controllers
                 return BadRequest($"Erro: {ex}");
             }
         }
-        
+
+        // GET: api/<HeroiController>/batalha/nomeBatalha
+        [HttpGet("filtro/{nome}")]
+        public async Task<ActionResult> GetFiltro(string nome)
+        {
+            try
+            {
+                var batalhas = await _repository.GetBatalhasByName(nome, true);
+                return Ok(batalhas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex}");
+            }
+
+        }
 
         // GET api/<BatalhasController>/5
         [HttpGet("{id}")]
